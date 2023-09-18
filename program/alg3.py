@@ -47,12 +47,11 @@ for iter in [1, 2]:
         timer = timeit.timeit(lambda: find(a, b, i), number=1)
         time.append(timer)
         index = find(a, b, i)
-        
+
         if index != -1:
             print("№", i, "С числом b = ", "Время = ", timer)
         else:
             print("№", i, " Время = ", timer)
-                  
 
     for i, j in zip(x, time):
         x2.append(i**2)
