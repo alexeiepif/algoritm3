@@ -25,8 +25,8 @@ def create_graph(b, c, aur, bur):
     plt.xticks(x_values)
     plt.yticks(y_values)
 
-
-for iter in [1,2]:
+#Цикл нужен для создания двух графиков, один при среднем случае, второй при худшем
+for iter in [1, 2]:
     x = []
     time = []
     x2 = []
@@ -43,26 +43,32 @@ for iter in [1,2]:
         index = find(a, b, i)
         if index != -1:
             print("№", i, "С числом b = ", b,
-                " совпал элемент с индексом ", index, "Время = ", timer)
+                  " совпал элемент с индексом ", index, "Время = ", timer)
         else:
             print("№", i, "С числом b = ", b,
-                " не совпал ни один элемент. Время = ", timer)
-
+                  " не совпал ни один элемент. Время = ", timer)
 
     for i, j in zip(x, time):
         x2.append(i**2)
         xtime.append(i*j)
-
+    # Вычисление коэффицентов в системе уравнений метода наименьших квадратов
     sx = sum(x)
     stime = sum(time)
     sx2 = sum(x2)
     sxtime = sum(xtime)
     n = len(x)
-
+    # Начало вычислений коэффицентов прямой, 
+    # k - это такой коэффицент, при вычитании второго уравнения, 
+    # умноженного на него, из первого уравнения, коэффицент при x исчезает, 
+    # и мы находим свободный коэффицент
     k = sx2/sx
-
+    #bur - это свободный коэффицент
     bur = (sxtime - k*stime)/(sx-k*n)
+    #aur - это коэффицент при x
     aur = (stime - bur*n)/sx
+    #Создание графических окон
     plt.figure(iter)
+    #Создание графиков
     create_graph(x, time, aur, bur)
+#Показ графиков
 plt.show()
