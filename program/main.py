@@ -46,6 +46,7 @@ for namegraph in ["Средний", "Худший"]:
         timer = timeit.timeit(lambda: find(a, b, i), number=1)
         time.append(timer)
         index = find(a, b, i)
+
     for i, j in zip(x, time):
         x2.append(i**2)
         xtime.append(i*j)
