@@ -28,9 +28,9 @@ def create_graph(b, c, aur, bur):
     return correlation_coefficient
 
 
-correlation = []
+correlation_v = []
 # Цикл нужен для создания двух графиков, один при среднем случае, второй при худшем
-for iter in [1, 2]:
+for namegraph in ["Средний", "Худший"]:
     x = []
     time = []
     x2 = []
@@ -39,7 +39,7 @@ for iter in [1, 2]:
     for i in range(10, 10001, 10):
         x.append(i)
         a = [rnd.randint(1, randmax) for j in range(i)]
-        if iter == 1:
+        if namegraph == "Средний":
             b = a[rnd.randint(1, len(a)-1)]
         else:
             b = randmax+1
@@ -65,12 +65,12 @@ for iter in [1, 2]:
     # aur - это коэффицент при x
     aur = (stime - bur*n)/sx
     # Создание графических окон
-    plt.figure(iter)
+    plt.figure(namegraph)
     # Создание графиков
-    correlation.append(create_graph(x, time, aur, bur))
+    correlation_v.append(create_graph(x, time, aur, bur))
 
 print("Коэффициент корреляции в первом случае =",
-      correlation[0], "\nа во втором случае =", correlation[1])
+      correlation_v[0], "\nа во втором случае =", correlation_v[1])
 
 # Показ графиков
 plt.show()
