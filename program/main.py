@@ -19,7 +19,6 @@ def create_graph(b, c, aur, bur):
 
     y_line = aur * np.array(b) + bur
     plt.plot(b, y_line, color='red')
-
     plt.title("График")
     plt.xlabel("X-ось")
     plt.ylabel("Y-ось")
@@ -36,8 +35,8 @@ for iter in [1, 2]:
     time = []
     x2 = []
     xtime = []
-    randmax = 100000
-    for i in range(10, 1001, 10):
+    randmax = 1000000
+    for i in range(10, 10001, 10):
         x.append(i)
         a = [rnd.randint(1, randmax) for j in range(i)]
         if iter == 1:
@@ -47,12 +46,6 @@ for iter in [1, 2]:
         timer = timeit.timeit(lambda: find(a, b, i), number=1)
         time.append(timer)
         index = find(a, b, i)
-
-        if index != -1:
-            print("№", i, "С числом b = ", "Время = ", timer)
-        else:
-            print("№", i, " Время = ", timer)
-
     for i, j in zip(x, time):
         x2.append(i**2)
         xtime.append(i*j)
@@ -62,10 +55,10 @@ for iter in [1, 2]:
     sx2 = sum(x2)
     sxtime = sum(xtime)
     n = len(x)
-    # Начало вычислений коэффицентов прямой,
-    # k - это такой коэффицент, при вычитании второго уравнения,
-    # умноженного на него, из первого уравнения, коэффицент при x исчезает,
-    # и мы находим свободный коэффицент
+    # k - это коэффициент, при котором вычитание
+    # из первого уравнения второго,
+    # умноженного на него, приводит к нулю в коэффициенте при x.
+    # Таким образом, мы сможем вычислить свободный коэффициент.
     k = sx2/sx
     # bur - это свободный коэффицент
     bur = (sxtime - k*stime)/(sx-k*n)
