@@ -24,7 +24,7 @@ def create_graph(b, c, aur, bur):
     plt.ylabel("Y-ось")
     plt.xticks(x_values)
     plt.yticks(y_values)
-    correlation_coefficient = np.corrcoef(c,b)[0, 1]
+    correlation_coefficient = np.corrcoef(c, b)[0, 1]
     return correlation_coefficient
 
 
