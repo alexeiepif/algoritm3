@@ -24,7 +24,7 @@ def create_graph(b, c, aur, bur):
     plt.ylabel("Y-ось")
     plt.xticks(x_values)
     plt.yticks(y_values)
-    correlation_coefficient = np.corrcoef(c, y_line)[0, 1]
+    correlation_coefficient = np.corrcoef(c,b)[0, 1]
     return correlation_coefficient
 
 
@@ -45,7 +45,6 @@ for namegraph in ["Средний", "Худший"]:
             b = randmax+1
         timer = timeit.timeit(lambda: find(a, b, i), number=1)
         time.append(timer)
-        index = find(a, b, i)
 
     for i, j in zip(x, time):
         x2.append(i**2)
