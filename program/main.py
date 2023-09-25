@@ -12,16 +12,16 @@ def find(a, b, len):
     return -1
 
 
-def create_graph(b, c, aur, bur):
+def create_graph(b, c, aur, bur, namegraph):
     y_values = np.linspace(0, max(c), num=5)
     x_values = np.linspace(0, b[-1], num=11)
     plt.scatter(b, c, s=5)
 
     y_line = aur * np.array(b) + bur
     plt.plot(b, y_line, color='red')
-    plt.title("График")
-    plt.xlabel("X-ось")
-    plt.ylabel("Y-ось")
+    plt.title(namegraph + " случай")
+    plt.xlabel("Размер массива")
+    plt.ylabel("Время работы функции")
     plt.xticks(x_values)
     plt.yticks(y_values)
     correlation_coefficient = np.corrcoef(c, b)[0, 1]
@@ -43,7 +43,7 @@ for namegraph in ["Средний", "Худший"]:
             b = a[rnd.randint(1, len(a)-1)]
         else:
             b = randmax+1
-        timer = timeit.timeit(lambda: find(a, b, i), number=1)
+        timer = (timeit.timeit(lambda: find(a, b, i), number=50))/50
         time.append(timer)
 
     for i, j in zip(x, time):
@@ -65,9 +65,9 @@ for namegraph in ["Средний", "Худший"]:
     # aur - это коэффицент при x
     aur = (stime - bur*n)/sx
     # Создание графических окон
-    plt.figure(namegraph)
+    plt.figure(namegraph).set_figwidth(8)
     # Создание графиков
-    correlation_v.append(create_graph(x, time, aur, bur))
+    correlation_v.append(create_graph(x, time, aur, bur, namegraph))
 
 print("Коэффициент корреляции в первом случае =",
       correlation_v[0], "\nа во втором случае =", correlation_v[1])
