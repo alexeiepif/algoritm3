@@ -1,5 +1,4 @@
 import random as rnd
-from statistics import correlation
 import matplotlib.pyplot as plt
 import numpy as np
 import timeit
@@ -13,17 +12,12 @@ def find(a, b, len):
 
 
 def create_graph(b, c, aur, bur, namegraph):
-    y_values = np.linspace(0, max(c), num=5)
-    x_values = np.linspace(0, b[-1], num=11)
     plt.scatter(b, c, s=5)
-
     y_line = aur * np.array(b) + bur
     plt.plot(b, y_line, color='red')
     plt.title(namegraph + " случай")
     plt.xlabel("Размер массива")
     plt.ylabel("Время работы функции")
-    plt.xticks(x_values)
-    plt.yticks(y_values)
     correlation_coefficient = np.corrcoef(c, b)[0, 1]
     return correlation_coefficient
 
@@ -31,13 +25,12 @@ def create_graph(b, c, aur, bur, namegraph):
 correlation_v = []
 # Цикл нужен для создания двух графиков, один при среднем случае, второй при худшем
 for namegraph in ["Средний", "Худший"]:
-    x = []
+    x = [i for i in range(10, 10001, 10)]
     time = []
     x2 = []
     xtime = []
     randmax = 1000000
-    for i in range(10, 10001, 10):
-        x.append(i)
+    for i in x:
         a = [rnd.randint(1, randmax) for j in range(i)]
         if namegraph == "Средний":
             b = a[rnd.randint(1, len(a)-1)]
@@ -46,14 +39,11 @@ for namegraph in ["Средний", "Худший"]:
         timer = (timeit.timeit(lambda: find(a, b, i), number=50))/50
         time.append(timer)
 
-    for i, j in zip(x, time):
-        x2.append(i**2)
-        xtime.append(i*j)
     # Вычисление коэффицентов в системе уравнений метода наименьших квадратов
     sx = sum(x)
     stime = sum(time)
-    sx2 = sum(x2)
-    sxtime = sum(xtime)
+    sx2 = sum(i**2 for i in x)
+    sxtime = sum(i*j for i, j in zip(x, time))
     n = len(x)
     # k - это коэффициент, при котором вычитание
     # из первого уравнения второго,
@@ -65,7 +55,9 @@ for namegraph in ["Средний", "Худший"]:
     # aur - это коэффицент при x
     aur = (stime - bur*n)/sx
     # Создание графических окон
-    plt.figure(namegraph).set_figwidth(8)
+    plt.figure(namegraph)
+    plt.subplots_adjust(left=0.2)
+    
     # Создание графиков
     correlation_v.append(create_graph(x, time, aur, bur, namegraph))
 
