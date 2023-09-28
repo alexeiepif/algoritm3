@@ -57,7 +57,7 @@ for namegraph in ["Средний", "Худший"]:
     # Создание графических окон
     plt.figure(namegraph)
     plt.subplots_adjust(left=0.2)
-    
+
     # Создание графиков
     correlation_v.append(create_graph(x, time, aur, bur, namegraph))
 
